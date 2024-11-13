@@ -1,0 +1,25 @@
+CREATE VIEW user_games AS
+SELECT 
+    u.id AS user_id,
+    u.name AS user_name,
+    u.age AS user_age,
+    g.game AS game_name
+FROM 
+    user u
+JOIN 
+    game g ON u.id = g.id;
+------------------------------------------------------------------------------
+CREATE VIEW main_info AS
+SELECT id, ФИО, Номер_телефона, Зарплата FROM table_kamaletdinov;
+------------------------------------------------------------------------------
+CREATE VIEW adress_info AS
+SELECT id, ФИО, Адресс FROM table_kamaletdinov ORDER BY Адресс ASC;
+------------------------------------------------------------------------------
+CREATE VIEW work_info AS
+SELECT id, ФИО, Продолжительность_трудовой_деятельности FROM table_kamaletdinov WHERE Продолжительность_трудовой_деятельности>4;
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
