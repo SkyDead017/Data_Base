@@ -1,0 +1,53 @@
+CREATE TABLE IF NOT EXISTS LOG (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    action VARCHAR(100),
+    user_id INT,
+    old_name VARCHAR(100),
+    new_name VARCHAR(100),
+    old_age INT,
+    new_age INT,
+    old_city VARCHAR(100),
+    new_city VARCHAR(100),
+    action_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+   );
+
+---------------------------------------------------------------------
+DELIMITER //
+
+CREATE TRIGGER IF NOT EXISTS after_user_insert
+AFTER INSERT ON user
+FOR EACH ROW
+BEGIN
+    INSERT INTO log (action, user_id, new_name, new_age, new_city)
+    VALUES ('insert', NEW.id, NEW.name, NEW.age, NEW.city);
+END;
+//
+
+DELIMITER ;
+-------------------------------------------------------------------------------------------------
+DELIMITER //
+
+CREATE TRIGGER IF NOT EXISTS after_user_update
+AFTER UPDATE ON user
+FOR EACH ROW
+BEGIN
+    INSERT INTO LOG (action, user_id, old_name, new_name, old_age, new_age, old_city, new_city)
+    VALUES ('update', NEW.id, OLD.name, NEW.name, OLD.age, NEW.age, OLD.city, NEW.city);
+END;
+//
+
+DELIMITER ;
+----------------------------------------------------------------------------------------------------
+DELIMITER //
+
+CREATE TRIGGER IF NOT EXISTS after_user_delete
+AFTER DELETE ON user
+FOR EACH ROW
+BEGIN
+    INSERT INTO LOG (action, user_id, old_name, old_age, old_city)
+    VALUES ('delete', OLD.id, OLD.name, OLD.age, old_city);
+END;
+//
+
+DELIMITER ;
+--------------------------------------------------------------------------------------------------------
