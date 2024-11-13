@@ -1,0 +1,39 @@
+DELIMITER //
+
+CREATE PROCEDURE AddUser(
+    IN p_Name VARCHAR(255),
+    IN p_Age INT,
+    IN p_City VARCHAR(255)
+)
+BEGIN
+    INSERT INTO user (name, age, city)
+    VALUES (p_Name, p_Age, p_City);
+END //
+
+DELIMITER ;
+------------------------------------------------------
+DELIMITER //
+
+CREATE PROCEDURE ShowUserFromCity(
+    IN p_City VARCHAR(255)
+)
+BEGIN
+	SELECT * FROM user WHERE city=p_City;
+END //
+
+DELIMITER ;
+------------------------------------------------------
+DELIMITER //
+
+CREATE PROCEDURE UpdateUserCity(
+    IN p_ID INT,
+    IN p_City VARCHAR(255)
+)
+BEGIN
+	UPDATE user SET city=p_City WHERE id=p_ID;
+END //
+
+DELIMITER ;
+-----------------------------------------------------
+CALL AddUser('Никита2002', 54, 'Лондон');
+CALL UpdateUserCity(3, 'Лос Анжелес');
